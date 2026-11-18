@@ -4,7 +4,9 @@ type HeaderReader = { get(name: string): string | null };
 
 // Atrás do Cloudflare Tunnel o IP real vem em CF-Connecting-IP; sem ele, o
 // primeiro item de X-Forwarded-For. Os dois podem ser forjados quando o app é
-// acessado direto, por isso o limite global em rate-limit.ts.
+// acessado direto, então o limite de tentativas (só por IP) pode ser contornado
+// por quem forja o cabeçalho; a defesa restante é a senha longa (mínimo de 12
+// caracteres).
 export function clientIp(headers: HeaderReader): string {
   const cf = headers.get("cf-connecting-ip")?.trim();
   if (cf) return cf;
