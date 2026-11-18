@@ -44,7 +44,7 @@ O Cloudflare Tunnel entrega `X-Forwarded-Proto: https` e `CF-Connecting-IP`; o a
 
 ## 5. Instalar no celular
 
-Abra o endereço HTTPS no navegador do celular, entre com a senha e use **Adicionar à tela inicial** (iOS: Compartilhar > Adicionar à Tela de Início; Android: menu do Chrome > Instalar app).
+Abra o endereço HTTPS no navegador do celular, entre com o usuário e a senha e use **Adicionar à tela inicial** (iOS: Compartilhar > Adicionar à Tela de Início; Android: menu do Chrome > Instalar app).
 
 ## 6. Atualizar, parar, backup
 
