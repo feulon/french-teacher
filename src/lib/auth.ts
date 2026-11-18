@@ -4,19 +4,13 @@ import { redirect } from "next/navigation";
 import { getConfig } from "./config";
 import { getDb } from "./db";
 import { attemptLogin, type LoginResult } from "./login";
-import { createCredentialVerifier } from "./password";
 import { clientIp, cookieShouldBeSecure } from "./request";
 import { SESSION_TTL_SECONDS, deleteSession, findSession } from "./session";
+import { verifyCredentials } from "./users";
 
 export const SESSION_COOKIE = "ft_session";
 
 const nowSeconds = () => Math.floor(Date.now() / 1000);
-
-let verifier: ((username: string, password: string) => boolean) | undefined;
-function getVerifier() {
-  verifier ??= createCredentialVerifier(getConfig().username, getConfig().password);
-  return verifier;
-}
 
 export async function hasValidSession(): Promise<boolean> {
   const token = (await cookies()).get(SESSION_COOKIE)?.value ?? "";
@@ -32,7 +26,7 @@ export async function login(username: string, password: string): Promise<LoginRe
   const requestHeaders = await headers();
   const result = attemptLogin({
     db: getDb(),
-    verify: getVerifier(),
+    verify: (name, secret) => verifyCredentials(getDb(), name, secret),
     username,
     password,
     ip: clientIp(requestHeaders),

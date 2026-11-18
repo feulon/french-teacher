@@ -5,7 +5,7 @@ import { Icon } from "@/components/Icon";
 import { loginAction, type LoginState } from "./actions";
 import styles from "./login.module.css";
 
-const initial: LoginState = { error: null };
+const initial: LoginState = { error: null, username: "" };
 
 export function LoginForm() {
   const [state, action, pending] = useActionState(loginAction, initial);
@@ -17,6 +17,7 @@ export function LoginForm() {
       <input
         id="username"
         name="username"
+        defaultValue={state.username}
         type="text"
         autoComplete="username"
         autoCapitalize="none"

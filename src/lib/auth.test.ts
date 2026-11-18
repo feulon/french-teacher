@@ -1,6 +1,5 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import { openDatabase } from "./db";
-import { createCredentialVerifier } from "./password";
 import {
   SESSION_TTL_SECONDS,
   createSession,
@@ -18,46 +17,16 @@ import {
 import { loadConfig } from "./config";
 
 describe("loadConfig", () => {
-  it("exige APP_USERNAME", () => {
-    expect(() => loadConfig({ APP_PASSWORD: "senha-longa-123" })).toThrow(/APP_USERNAME/);
-    expect(() => loadConfig({ APP_USERNAME: "  ", APP_PASSWORD: "senha-longa-123" })).toThrow(/APP_USERNAME/);
-  });
-
-  it("exige APP_PASSWORD", () => {
-    expect(() => loadConfig({ APP_USERNAME: "dono" })).toThrow(/APP_PASSWORD/);
-  });
-
-  it("rejeita senha com menos de 12 caracteres", () => {
-    expect(() => loadConfig({ APP_USERNAME: "dono", APP_PASSWORD: "onze-chars1" })).toThrow(/12/);
-    expect(loadConfig({ APP_USERNAME: "dono", APP_PASSWORD: "doze-chars12" }).password).toBe("doze-chars12");
-  });
-
   it("usa ./data como padrão e respeita DATA_DIR", () => {
-    expect(loadConfig({ APP_USERNAME: "dono", APP_PASSWORD: "senha-longa-123" }).dataDir).toBe("./data");
-    expect(loadConfig({ APP_USERNAME: "dono", APP_PASSWORD: "senha-longa-123", DATA_DIR: "/data" }).dataDir).toBe("/data");
+    expect(loadConfig({}).dataDir).toBe("./data");
+    expect(loadConfig({ DATA_DIR: "/data" }).dataDir).toBe("/data");
   });
 
   it("COOKIE_SECURE aceita auto, true e false", () => {
-    const base = { APP_USERNAME: "dono", APP_PASSWORD: "senha-longa-123" };
-    expect(loadConfig(base).cookieSecure).toBe("auto");
-    expect(loadConfig({ ...base, COOKIE_SECURE: "true" }).cookieSecure).toBe("true");
-    expect(loadConfig({ ...base, COOKIE_SECURE: "false" }).cookieSecure).toBe("false");
-    expect(() => loadConfig({ ...base, COOKIE_SECURE: "talvez" })).toThrow(/COOKIE_SECURE/);
-  });
-});
-
-describe("createCredentialVerifier", () => {
-  const verify = createCredentialVerifier("dono", "correct horse battery");
-
-  it("aceita usuário e senha certos", () => {
-    expect(verify("dono", "correct horse battery")).toBe(true);
-  });
-
-  it("rejeita usuário errado, senha errada, vazios e de outro tamanho", () => {
-    expect(verify("outro", "correct horse battery")).toBe(false);
-    expect(verify("dono", "correct horse batter")).toBe(false);
-    expect(verify("", "")).toBe(false);
-    expect(verify("x".repeat(500), "x".repeat(500))).toBe(false);
+    expect(loadConfig({}).cookieSecure).toBe("auto");
+    expect(loadConfig({ COOKIE_SECURE: "true" }).cookieSecure).toBe("true");
+    expect(loadConfig({ COOKIE_SECURE: "false" }).cookieSecure).toBe("false");
+    expect(() => loadConfig({ COOKIE_SECURE: "talvez" })).toThrow(/COOKIE_SECURE/);
   });
 });
 

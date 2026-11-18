@@ -10,7 +10,7 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN npm run build && npm run build:cli
 
 FROM node:24-alpine AS runtime
 WORKDIR /app
@@ -24,6 +24,8 @@ RUN mkdir /data && chown node:node /data
 COPY --from=build --chown=node:node /app/.next/standalone ./
 COPY --from=build --chown=node:node /app/.next/static ./.next/static
 COPY --from=build --chown=node:node /app/public ./public
+# Comando de cadastro de usuário: docker compose exec -it app node create-user.mjs
+COPY --from=build --chown=node:node /app/dist/create-user.mjs ./create-user.mjs
 USER node
 EXPOSE 3000
 VOLUME ["/data"]

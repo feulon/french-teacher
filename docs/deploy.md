@@ -13,7 +13,7 @@ Passo a passo para rodar o app em Docker no servidor local e, depois, publicá-l
 cp .env.example .env
 ```
 
-Edite o `.env` e defina `APP_USERNAME` (o usuário) e `APP_PASSWORD` (a senha, com 12 caracteres ou mais; gere uma com `openssl rand -base64 18`). Sem eles o container não sobe e o log diz o motivo. O app não tem cadastro: existe um usuário e estas são as credenciais dele.
+O `.env` só traz ajustes opcionais (fuso, porta, cookie). Usuário e senha não ficam nele: são cadastrados no passo 4, pelo terminal.
 
 ## 3. Subir
 
@@ -25,9 +25,27 @@ docker compose logs -f app
 
 Por padrão o app escuta só em `127.0.0.1:3000` do servidor. Para testar pelo celular na rede local antes do túnel, ponha `BIND_ADDRESS=0.0.0.0` no `.env`, rode `docker compose up -d` de novo e abra `http://IP-DO-SERVIDOR:3000`. Por `http` o login funciona (com `COOKIE_SECURE=auto` o cookie só recebe a flag `Secure` quando o acesso chega por HTTPS), mas o navegador não oferece instalar o app: isso só vale por HTTPS, depois do túnel. Volte para `127.0.0.1` quando o túnel estiver no ar.
 
-Os dados (banco SQLite com sessões e tentativas de login) ficam no volume Docker `french-teacher-data`, montado em `/data`, e sobrevivem a `docker compose down` e a atualizações da imagem.
+Os dados (banco SQLite com o usuário e o hash da senha, as sessões e as tentativas de login) ficam no volume Docker `french-teacher-data`, montado em `/data`, e sobrevivem a `docker compose down` e a atualizações da imagem.
 
-## 4. Cloudflare Tunnel
+## 4. Cadastrar o usuário e a senha
+
+Com o container no ar, cadastre o usuário (o app não tem cadastro pela página):
+
+```bash
+docker compose exec -it app node create-user.mjs
+```
+
+O comando pergunta o usuário e a senha (duas vezes, sem mostrar o que você digita). A senha precisa ter **pelo menos 12 caracteres**; o comando recusa as menores e não grava nada. Para gerar uma: `openssl rand -base64 18`. A senha é gravada só como hash (scrypt com sal) no SQLite do volume `/data`; ela não fica em arquivo nem em variável de ambiente.
+
+Sem terminal interativo (script), passe o usuário como argumento e a senha por pipe:
+
+```bash
+printf '%s\n' "$SENHA" | docker compose exec -T app node create-user.mjs usuario
+```
+
+Rodar o comando de novo com o mesmo usuário troca a senha e encerra as sessões abertas, então serve também para recuperar o acesso se você esquecer a senha. Não use `exec -u root`: o banco pertence ao usuário `node`. Enquanto nenhum usuário existir, o log do container avisa isso e ninguém consegue entrar.
+
+## 5. Cloudflare Tunnel
 
 Pré-requisito: um domínio com DNS na Cloudflare. O `cloudflared` roda no servidor e abre uma conexão de saída até a Cloudflare, então não é preciso abrir portas no roteador.
 
@@ -42,11 +60,11 @@ Se o `cloudflared` rodar como container no mesmo Compose ou em outra rede Docker
 
 O Cloudflare Tunnel entrega `X-Forwarded-Proto: https` e `CF-Connecting-IP`; o app usa o primeiro para marcar o cookie como `Secure` e o segundo para o limite de tentativas de login (5 erros por IP em 15 minutos; o limite é só por IP, então a defesa contra troca de IP é a senha longa).
 
-## 5. Instalar no celular
+## 6. Instalar no celular
 
 Abra o endereço HTTPS no navegador do celular, entre com o usuário e a senha e use **Adicionar à tela inicial** (iOS: Compartilhar > Adicionar à Tela de Início; Android: menu do Chrome > Instalar app).
 
-## 6. Atualizar, parar, backup
+## 7. Atualizar, parar, backup
 
 ```bash
 git pull
