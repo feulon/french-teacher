@@ -1,0 +1,186 @@
+/* Direção A - Cahier: caderno escolar francês (papel Seyès), tinta azul, carimbo vermelho.
+   Claro = "Papier", escuro = "Nuit d'encre". Segue o tema do sistema. */
+:root {
+  color-scheme: light dark;
+  --paper: #fbf6ea;
+  --card: #fffefa;
+  --ink: #1b2340;
+  --muted: #5c6278;
+  --rule: #cad6ee;
+  --rule-2: #a5b8e2;
+  --margin: #e2766c;
+  --accent: #c23b25; /* cor da marca: ação principal e carimbo. Nunca significa erro. */
+  --on-accent: #ffffff;
+  --pen: #27479a;
+  --marker: #ffe680;
+  --pill: #ffe680;
+  /* Feedback (acerto, atenção, erro) tem tokens próprios, separados da marca.
+     O erro é cor de amora, não vermelho, para não se confundir com o tomate da marca.
+     Sempre acompanhado de ícone ou texto, nunca só de cor. */
+  --ok: #2d7a57;
+  --warn: #a86f00;
+  --error: #9e1b5f;
+  --shadow: rgba(70, 50, 20, 0.2);
+  --backdrop: #e6e0d2;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #11172a;
+    --card: #1a2238;
+    --ink: #f3ecdb;
+    --muted: #a8afc4;
+    --rule: #2b3659;
+    --rule-2: #3d4d7f;
+    --margin: #d0655b;
+    --accent: #ff8068;
+    --on-accent: #2a0f08;
+    --pen: #9db2ff;
+    --marker: #6b5b12;
+    --pill: #2f3e70;
+    --ok: #6fd3a3;
+    --warn: #f0bc55;
+    --error: #ff8ec4;
+    --shadow: rgba(0, 0, 0, 0.55);
+    --backdrop: #05070d;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--backdrop);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--pen);
+  outline-offset: 3px;
+}
+
+/* ---------- moldura do app: coluna de celular, centralizada em telas largas ---------- */
+.shell {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 430px;
+  height: 100dvh;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+/* Área rolável de uma tela. A rolagem é só vertical. */
+.screen {
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-top: max(env(safe-area-inset-top), 14px);
+}
+
+/* ---------- tipografia ---------- */
+.display {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+}
+
+.hand {
+  font-family: var(--font-hand), cursive;
+  font-weight: 300;
+}
+
+.eyebrow {
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* Pronúncia: Gentium Plus tem o bloco IPA e o til combinante inteiros. */
+.ipa {
+  font-family: var(--font-ipa), "Noto Sans", serif;
+  font-size: 19px;
+  color: var(--muted);
+}
+
+/* ---------- botões ---------- */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 64px;
+  padding: 0 24px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.005em;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow:
+    0 10px 22px -10px var(--accent),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.16);
+}
+
+.btn-ghost {
+  background: var(--card);
+  color: var(--ink);
+  border: 1.5px solid var(--rule-2);
+}
+
+/* Rodapé fixo com a ação principal, acima da navegação. */
+.dock {
+  flex: none;
+  padding: 0 24px 32px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

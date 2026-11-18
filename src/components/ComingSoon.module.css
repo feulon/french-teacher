@@ -1,0 +1,48 @@
+.page {
+  position: relative;
+  margin: 0 20px;
+  padding: 20px 20px 24px 0;
+  background: var(--card);
+  border-radius: 22px;
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  box-shadow: 0 14px 30px -16px var(--shadow);
+}
+
+.page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50px;
+  width: 1.5px;
+  background: var(--margin);
+  opacity: 0.85;
+}
+
+.body {
+  padding-left: 66px;
+  display: grid;
+  gap: 14px;
+}
+
+.title {
+  font-size: 36px;
+  text-decoration: underline double var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 7px;
+  justify-self: start;
+}
+
+.text {
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.back {
+  margin-top: 6px;
+}
+
+.wrap {
+  padding: 28px 0 20px;
+}

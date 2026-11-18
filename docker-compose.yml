@@ -1,0 +1,23 @@
+services:
+  app:
+    build: .
+    image: french-teacher:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATA_DIR: /data
+    ports:
+      # Só a própria máquina enxerga a porta; o Cloudflare Tunnel fala com ela por localhost.
+      # Para testar pelo celular na rede local, use BIND_ADDRESS=0.0.0.0 no .env.
+      - "${BIND_ADDRESS:-127.0.0.1}:${HOST_PORT:-3000}:3000"
+    volumes:
+      - french-teacher-data:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+
+volumes:
+  french-teacher-data:
