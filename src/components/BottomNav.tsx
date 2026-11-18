@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 import { Icon, type IconName } from "./Icon";
 import styles from "./BottomNav.module.css";
 
-const TABS: readonly { href: string; label: string; icon: IconName; also?: string }[] = [
-  { href: "/", label: "Hoje", icon: "home", also: "/aula" },
+const TABS: readonly { href: string; label: string; icon: IconName }[] = [
+  { href: "/", label: "Hoje", icon: "home" },
   { href: "/semana", label: "Semana", icon: "calendar" },
   { href: "/cartoes", label: "Cartões", icon: "cards" },
   { href: "/conversa", label: "Conversa", icon: "chat" },
@@ -17,7 +17,7 @@ export function BottomNav() {
   return (
     <nav className={styles.nav} aria-label="Navegação">
       {TABS.map((tab) => {
-        const current = pathname === tab.href || (tab.also !== undefined && pathname === tab.also);
+        const current = pathname === tab.href;
         return (
           <Link
             key={tab.href}

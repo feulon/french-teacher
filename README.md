@@ -19,6 +19,14 @@ O Next carrega o `.env` sozinho. Os dados ficam em `./data`.
 
 Outros comandos: `npm test`, `npm run lint`, `npm run typecheck`, `npm run build`.
 
+## Aulas, cartões e progresso
+
+O conteúdo fica em arquivos versionados, não nos componentes: cada aula é um JSON em `src/content/chapters/` (hoje, `01-bonjour/aula-01.json`, a aula 1 do capítulo 1). Cada item tem francês, pronúncia aproximada em português, IPA, tradução e uma frase de exemplo. Para montar uma aula nova, crie o JSON ao lado e registre-o em `src/content/index.ts`; `src/lib/content.ts` valida o formato e um arquivo malformado derruba o build e os testes.
+
+O progresso fica no SQLite (`cards`, `reviews`, `step_completions`, `study_days`). A repetição espaçada é um SM-2 com passos de aprendizado de 1 e 10 minutos (`src/lib/srs/`); os 4 botões (De novo, Difícil, Bom, Fácil) mostram o próximo intervalo. A sequência (streak) conta os dias em que houve alguma nota ou etapa concluída, no fuso de `TZ`.
+
+O áudio usa a voz do navegador em fr-FR (Web Speech API). Sem voz em francês instalada no aparelho, a tela avisa em vez de ler com sotaque errado. A gravação de fala, Escrever e Conversar com a IA ainda aparecem como "em breve".
+
 ## Usuário e senha
 
 Não há cadastro pela página nem usuário em variável de ambiente. O usuário e a senha são cadastrados pelo terminal e a senha fica no SQLite só como hash (scrypt com sal). Depois o login é feito pela página, com usuário e senha.

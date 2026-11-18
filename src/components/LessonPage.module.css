@@ -45,12 +45,23 @@
 }
 
 .step {
-  min-height: 44px;
-  display: flex;
-  align-items: center;
   border-top: 1px solid var(--rule);
   font-size: 16.5px;
   font-weight: 500;
+}
+
+/* A linha inteira é o alvo de toque (mínimo de 44 px). */
+.row {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Etapas feitas, vazias ou ainda não construídas ficam em segundo plano. */
+.quiet .label {
+  color: var(--muted);
 }
 
 .step:first-child {

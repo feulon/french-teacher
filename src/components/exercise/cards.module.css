@@ -1,0 +1,175 @@
+/* Frente e verso do cartão de vocabulário (mockups 2a e 2b da direção Cahier). */
+
+/* ---------- frente: bilhete preso com fita ---------- */
+.polaroid {
+  position: relative;
+  width: min(262px, calc(100% - 56px));
+  margin: 26px auto 0;
+  padding: 12px 12px 16px;
+  background: #fff;
+  border-radius: 4px;
+  transform: rotate(-2.2deg);
+  box-shadow:
+    0 14px 24px -10px rgba(40, 25, 5, 0.55),
+    0 0 0 1px rgba(0, 0, 0, 0.06);
+  color: #1b2340; /* o papel é branco nos dois temas, como um objeto de verdade */
+}
+
+.tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 84px;
+  height: 26px;
+  margin-left: -42px;
+  transform: rotate(3deg);
+  background: color-mix(in srgb, var(--marker) 78%, transparent);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.photo {
+  aspect-ratio: 1;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: 16px;
+  border-radius: 2px;
+  background: #f6f0e1;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5c6278;
+}
+
+.cue {
+  line-height: 1.1;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.cap {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 8px;
+  line-height: 1.7;
+}
+
+.frontHint {
+  margin-top: 26px;
+}
+
+/* ---------- verso ---------- */
+.word {
+  height: calc(var(--u) * 2);
+  padding: 0 22px 9px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.word h2 {
+  min-width: 0;
+  white-space: nowrap;
+  font-size: min(58px, max(26px, calc((100cqw - 112px) / (var(--len) * 0.54))));
+  line-height: 0.9;
+}
+
+.speak {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: none;
+  margin-bottom: -2px;
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 0 8px 16px -8px var(--accent);
+}
+
+.speak:disabled {
+  background: var(--rule-2);
+  color: var(--muted);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.ipaRow {
+  gap: 10px;
+  align-items: center;
+  padding-bottom: 0;
+}
+
+.tag {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 8px;
+  background: var(--marker);
+  color: var(--ink);
+}
+
+.pronRow {
+  gap: 8px;
+  align-items: center;
+  padding-bottom: 0;
+}
+
+.pronLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.pron {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--pen);
+}
+
+.trad {
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  line-height: 1;
+  font-size: min(26px, max(17px, calc((100cqw - 44px) / (var(--len) * 0.5))));
+}
+
+.exFr {
+  font-family: var(--font-hand), cursive;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--pen);
+  padding-bottom: 8px;
+  font-size: min(19px, max(12px, calc((100cqw - 44px) / (var(--len) * 0.62))));
+}
+
+.exPt {
+  font-size: 14.5px;
+  color: var(--muted);
+  padding-bottom: 3px;
+}
+
+.note {
+  padding: 0 22px 18px;
+  font-size: 14px;
+  /* uma linha de texto por pauta, assentada sobre ela */
+  line-height: var(--u);
+  position: relative;
+  top: 6px;
+  color: var(--muted);
+}
+
+.note b {
+  color: var(--ink);
+}

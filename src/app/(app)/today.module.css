@@ -6,3 +6,10 @@
   padding-right: 20px;
   padding-bottom: 12px;
 }
+
+.finished {
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
