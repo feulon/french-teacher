@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import { openDatabase } from "./db";
-import { createPasswordVerifier } from "./password";
+import { createCredentialVerifier } from "./password";
 import {
   SESSION_TTL_SECONDS,
   createSession,
@@ -9,7 +9,6 @@ import {
   purgeExpiredSessions,
 } from "./session";
 import {
-  GLOBAL_MAX_FAILURES,
   IP_MAX_FAILURES,
   WINDOW_SECONDS,
   checkLoginAllowed,
@@ -19,21 +18,27 @@ import {
 import { loadConfig } from "./config";
 
 describe("loadConfig", () => {
-  it("exige APP_PASSWORD", () => {
-    expect(() => loadConfig({})).toThrow(/APP_PASSWORD/);
+  it("exige APP_USERNAME", () => {
+    expect(() => loadConfig({ APP_PASSWORD: "senha-longa-123" })).toThrow(/APP_USERNAME/);
+    expect(() => loadConfig({ APP_USERNAME: "  ", APP_PASSWORD: "senha-longa-123" })).toThrow(/APP_USERNAME/);
   });
 
-  it("rejeita senha curta", () => {
-    expect(() => loadConfig({ APP_PASSWORD: "curta" })).toThrow(/8/);
+  it("exige APP_PASSWORD", () => {
+    expect(() => loadConfig({ APP_USERNAME: "dono" })).toThrow(/APP_PASSWORD/);
+  });
+
+  it("rejeita senha com menos de 12 caracteres", () => {
+    expect(() => loadConfig({ APP_USERNAME: "dono", APP_PASSWORD: "onze-chars1" })).toThrow(/12/);
+    expect(loadConfig({ APP_USERNAME: "dono", APP_PASSWORD: "doze-chars12" }).password).toBe("doze-chars12");
   });
 
   it("usa ./data como padrão e respeita DATA_DIR", () => {
-    expect(loadConfig({ APP_PASSWORD: "senha-longa-1" }).dataDir).toBe("./data");
-    expect(loadConfig({ APP_PASSWORD: "senha-longa-1", DATA_DIR: "/data" }).dataDir).toBe("/data");
+    expect(loadConfig({ APP_USERNAME: "dono", APP_PASSWORD: "senha-longa-123" }).dataDir).toBe("./data");
+    expect(loadConfig({ APP_USERNAME: "dono", APP_PASSWORD: "senha-longa-123", DATA_DIR: "/data" }).dataDir).toBe("/data");
   });
 
   it("COOKIE_SECURE aceita auto, true e false", () => {
-    const base = { APP_PASSWORD: "senha-longa-1" };
+    const base = { APP_USERNAME: "dono", APP_PASSWORD: "senha-longa-123" };
     expect(loadConfig(base).cookieSecure).toBe("auto");
     expect(loadConfig({ ...base, COOKIE_SECURE: "true" }).cookieSecure).toBe("true");
     expect(loadConfig({ ...base, COOKIE_SECURE: "false" }).cookieSecure).toBe("false");
@@ -41,17 +46,18 @@ describe("loadConfig", () => {
   });
 });
 
-describe("createPasswordVerifier", () => {
-  const verify = createPasswordVerifier("correct horse battery");
+describe("createCredentialVerifier", () => {
+  const verify = createCredentialVerifier("dono", "correct horse battery");
 
-  it("aceita a senha certa", () => {
-    expect(verify("correct horse battery")).toBe(true);
+  it("aceita usuário e senha certos", () => {
+    expect(verify("dono", "correct horse battery")).toBe(true);
   });
 
-  it("rejeita senha errada, vazia e de outro tamanho", () => {
-    expect(verify("correct horse batter")).toBe(false);
-    expect(verify("")).toBe(false);
-    expect(verify("x".repeat(500))).toBe(false);
+  it("rejeita usuário errado, senha errada, vazios e de outro tamanho", () => {
+    expect(verify("outro", "correct horse battery")).toBe(false);
+    expect(verify("dono", "correct horse batter")).toBe(false);
+    expect(verify("", "")).toBe(false);
+    expect(verify("x".repeat(500), "x".repeat(500))).toBe(false);
   });
 });
 
@@ -122,10 +128,9 @@ describe("limite de tentativas de login", () => {
     expect(checkLoginAllowed(db, "1.1.1.1", 1_000 + WINDOW_SECONDS).allowed).toBe(true);
   });
 
-  it("limite global bloqueia mesmo trocando de IP", () => {
-    for (let i = 0; i < GLOBAL_MAX_FAILURES; i++) recordFailure(db, `10.0.0.${i}`, 1_000);
-    const result = checkLoginAllowed(db, "9.9.9.9", 1_001);
-    expect(result.allowed).toBe(false);
+  it("muitas falhas espalhadas por IPs diferentes não bloqueiam outro IP", () => {
+    for (let i = 0; i < 60; i++) recordFailure(db, `10.0.0.${i}`, 1_000);
+    expect(checkLoginAllowed(db, "9.9.9.9", 1_001)).toEqual({ allowed: true });
   });
 
   it("um login certo zera as falhas do IP", () => {

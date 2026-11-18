@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { getConfig } from "./config";
 import { getDb } from "./db";
 import { attemptLogin, type LoginResult } from "./login";
-import { createPasswordVerifier } from "./password";
+import { createCredentialVerifier } from "./password";
 import { clientIp, cookieShouldBeSecure } from "./request";
 import { SESSION_TTL_SECONDS, deleteSession, findSession } from "./session";
 
@@ -12,9 +12,9 @@ export const SESSION_COOKIE = "ft_session";
 
 const nowSeconds = () => Math.floor(Date.now() / 1000);
 
-let verifier: ((candidate: string) => boolean) | undefined;
+let verifier: ((username: string, password: string) => boolean) | undefined;
 function getVerifier() {
-  verifier ??= createPasswordVerifier(getConfig().password);
+  verifier ??= createCredentialVerifier(getConfig().username, getConfig().password);
   return verifier;
 }
 
@@ -28,11 +28,12 @@ export async function requireSession(): Promise<void> {
   if (!(await hasValidSession())) redirect("/login");
 }
 
-export async function login(password: string): Promise<LoginResult> {
+export async function login(username: string, password: string): Promise<LoginResult> {
   const requestHeaders = await headers();
   const result = attemptLogin({
     db: getDb(),
     verify: getVerifier(),
+    username,
     password,
     ip: clientIp(requestHeaders),
     now: nowSeconds(),

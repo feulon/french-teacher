@@ -10,7 +10,7 @@ Requer Node 22.13 ou mais novo.
 
 ```bash
 npm install
-cp .env.example .env   # preencha APP_PASSWORD
+cp .env.example .env   # preencha APP_USERNAME e APP_PASSWORD (mín. 12 caracteres; ex.: openssl rand -base64 18)
 npm run dev            # http://localhost:3000
 ```
 
@@ -21,7 +21,7 @@ Outros comandos: `npm test`, `npm run lint`, `npm run typecheck`, `npm run build
 ## Rodar em Docker
 
 ```bash
-cp .env.example .env   # preencha APP_PASSWORD
+cp .env.example .env   # preencha APP_USERNAME e APP_PASSWORD (mín. 12 caracteres; ex.: openssl rand -base64 18)
 docker compose up -d --build
 ```
 

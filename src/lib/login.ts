@@ -4,25 +4,26 @@ import { createSession, purgeExpiredSessions } from "./session";
 
 export type LoginResult =
   | { ok: true; token: string }
-  | { ok: false; reason: "wrong-password" }
+  | { ok: false; reason: "invalid-credentials" }
   | { ok: false; reason: "rate-limited"; retryAfterSeconds: number };
 
 type LoginInput = {
   db: Db;
-  verify: (candidate: string) => boolean;
+  verify: (username: string, password: string) => boolean;
+  username: string;
   password: string;
   ip: string;
   now: number;
 };
 
-export function attemptLogin({ db, verify, password, ip, now }: LoginInput): LoginResult {
+export function attemptLogin({ db, verify, username, password, ip, now }: LoginInput): LoginResult {
   const check = checkLoginAllowed(db, ip, now);
   if (!check.allowed) {
     return { ok: false, reason: "rate-limited", retryAfterSeconds: check.retryAfterSeconds };
   }
-  if (!verify(password)) {
+  if (!verify(username, password)) {
     recordFailure(db, ip, now);
-    return { ok: false, reason: "wrong-password" };
+    return { ok: false, reason: "invalid-credentials" };
   }
   clearFailures(db, ip);
   purgeExpiredSessions(db, now);

@@ -13,7 +13,7 @@ Passo a passo para rodar o app em Docker no servidor local e, depois, publicá-l
 cp .env.example .env
 ```
 
-Edite o `.env` e defina ao menos `APP_PASSWORD` (a senha do único usuário, com 8 caracteres ou mais). Sem ela o container não sobe e o log diz o motivo. O app não tem cadastro: existe um usuário e esta é a senha dele.
+Edite o `.env` e defina `APP_USERNAME` (o usuário) e `APP_PASSWORD` (a senha, com 12 caracteres ou mais; gere uma com `openssl rand -base64 18`). Sem eles o container não sobe e o log diz o motivo. O app não tem cadastro: existe um usuário e estas são as credenciais dele.
 
 ## 3. Subir
 
@@ -40,7 +40,7 @@ Pré-requisito: um domínio com DNS na Cloudflare. O `cloudflared` roda no servi
 
 Se o `cloudflared` rodar como container no mesmo Compose ou em outra rede Docker, troque `localhost:3000` por `http://app:3000` e coloque os dois serviços na mesma rede.
 
-O Cloudflare Tunnel entrega `X-Forwarded-Proto: https` e `CF-Connecting-IP`; o app usa o primeiro para marcar o cookie como `Secure` e o segundo para o limite de tentativas de login (5 erros por IP em 15 minutos, 30 no total).
+O Cloudflare Tunnel entrega `X-Forwarded-Proto: https` e `CF-Connecting-IP`; o app usa o primeiro para marcar o cookie como `Secure` e o segundo para o limite de tentativas de login (5 erros por IP em 15 minutos; o limite é só por IP, então a defesa contra troca de IP é a senha longa).
 
 ## 5. Instalar no celular
 

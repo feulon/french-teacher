@@ -1,15 +1,20 @@
 export type CookieSecure = "auto" | "true" | "false";
 
 export type AppConfig = {
+  readonly username: string;
   readonly password: string;
   readonly dataDir: string;
   readonly cookieSecure: CookieSecure;
   readonly timeZone: string;
 };
 
-const MIN_PASSWORD_LENGTH = 8;
+const MIN_PASSWORD_LENGTH = 12;
 
 export function loadConfig(env: Record<string, string | undefined>): AppConfig {
+  const username = env.APP_USERNAME ?? "";
+  if (username.trim() === "") {
+    throw new Error("APP_USERNAME não está definida. Copie .env.example para .env e escolha um usuário.");
+  }
   const password = env.APP_PASSWORD ?? "";
   if (password === "") {
     throw new Error("APP_PASSWORD não está definida. Copie .env.example para .env e escolha uma senha.");
@@ -24,6 +29,7 @@ export function loadConfig(env: Record<string, string | undefined>): AppConfig {
   }
 
   return {
+    username,
     password,
     dataDir: env.DATA_DIR || "./data",
     cookieSecure,

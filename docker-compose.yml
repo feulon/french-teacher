@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     env_file: .env
     environment:
+      APP_USERNAME: ${APP_USERNAME:?defina APP_USERNAME no .env}
       DATA_DIR: /data
     ports:
       # Só a própria máquina enxerga a porta; o Cloudflare Tunnel fala com ela por localhost.
