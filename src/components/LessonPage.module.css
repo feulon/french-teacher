@@ -1,0 +1,85 @@
+/* Página do caderno: margem vermelha e etapas como linhas da pauta. */
+.page {
+  position: relative;
+  flex: 1 0 auto;
+  padding: 14px 20px 14px 0;
+  background: var(--card);
+  border-radius: 22px;
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  box-shadow: 0 14px 30px -16px var(--shadow);
+}
+
+.page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50px;
+  width: 1.5px;
+  background: var(--margin);
+  opacity: 0.85;
+}
+
+.head {
+  padding-left: 66px;
+}
+
+.title {
+  font-size: 42px;
+  margin-top: 6px;
+  text-decoration: underline double var(--accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 7px;
+}
+
+.meta {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+.steps {
+  list-style: none;
+  margin-top: 10px;
+}
+
+.step {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid var(--rule);
+  font-size: 16.5px;
+  font-weight: 500;
+}
+
+.step:first-child {
+  border-top-color: var(--rule-2);
+}
+
+.icon {
+  width: 51px;
+  display: grid;
+  place-items: center;
+  color: var(--pen);
+  flex: none;
+}
+
+.label {
+  flex: 1;
+  padding: 10px 8px 10px 14px;
+}
+
+.next {
+  font-style: normal;
+  background: linear-gradient(transparent 52%, var(--marker) 52% 92%, transparent 92%);
+  padding: 0 3px;
+  margin-left: -3px;
+}
+
+.min {
+  font-size: 13px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}

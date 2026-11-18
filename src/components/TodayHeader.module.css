@@ -1,0 +1,43 @@
+.hello {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  column-gap: 12px;
+  padding: 2px 4px 0;
+}
+
+.greet {
+  font-size: 27px;
+  line-height: 1.5;
+  color: var(--pen);
+}
+
+.side {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.date {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* Botão discreto com alvo de toque de 44 px; as margens negativas evitam
+   que a área de toque aumente a altura do cabeçalho. */
+.logout {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  margin: -13px -13px -13px -2px;
+  padding: 0 13px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pen);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
