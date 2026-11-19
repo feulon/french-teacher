@@ -1,0 +1,202 @@
+{
+  "id": "c1-l1",
+  "chapter": { "number": 1, "title": "Bonjour !", "lessonCount": 8 },
+  "number": 1,
+  "title": "Premiers mots",
+  "steps": [
+    { "id": "review", "minutes": 3 },
+    { "id": "words", "minutes": 7 },
+    { "id": "listen", "minutes": 4 },
+    { "id": "write", "minutes": 3 },
+    { "id": "chat", "minutes": 3 }
+  ],
+  "listen": [
+    "c1l1-bonjour",
+    "c1l1-je-mappelle",
+    "c1l1-comment-ca-va",
+    "c1l1-ca-va-bien",
+    "c1l1-sil-vous-plait",
+    "c1l1-merci"
+  ],
+  "items": [
+    {
+      "id": "c1l1-bonjour",
+      "fr": "Bonjour",
+      "pron": "bõ-JUR",
+      "ipa": "/bɔ̃.ʒuʁ/",
+      "pt": "bom dia; olá",
+      "tag": "Saudação",
+      "note": "O \"on\" é nasal: o ar sai pelo nariz, sem pronunciar o \"n\". O R francês é suave, no fundo da garganta.",
+      "example": {
+        "fr": "Bonjour, madame !",
+        "ipa": "/bɔ̃.ʒuʁ ma.dam/",
+        "pt": "Bom dia, senhora!",
+        "highlight": "Bonjour"
+      }
+    },
+    {
+      "id": "c1l1-salut",
+      "fr": "Salut",
+      "pron": "sa-LÜ",
+      "ipa": "/sa.ly/",
+      "pt": "oi; tchau",
+      "tag": "Informal",
+      "note": "O \"u\" francês: diga \"i\" com os lábios arredondados, como se fosse dizer \"u\". Serve para chegar e para ir embora, só entre amigos.",
+      "example": {
+        "fr": "Salut, Léa !",
+        "ipa": "/sa.ly le.a/",
+        "pt": "Oi, Léa!",
+        "highlight": "Salut"
+      }
+    },
+    {
+      "id": "c1l1-au-revoir",
+      "fr": "Au revoir",
+      "pron": "o rë-VUAR",
+      "ipa": "/o ʁə.vwaʁ/",
+      "pt": "tchau; até logo",
+      "tag": "Despedida",
+      "note": "O \"ë\" é um \"e\" bem fraquinho, quase mudo.",
+      "example": {
+        "fr": "Au revoir, monsieur !",
+        "ipa": "/o ʁə.vwaʁ mə.sjø/",
+        "pt": "Tchau, senhor!",
+        "highlight": "Au revoir"
+      }
+    },
+    {
+      "id": "c1l1-je-mappelle",
+      "fr": "Je m'appelle…",
+      "pron": "jë ma-PÉL",
+      "ipa": "/ʒə ma.pɛl/",
+      "pt": "eu me chamo…",
+      "tag": "Apresentação",
+      "note": "O \"j\" soa como o \"j\" de \"já\". Depois do nome, nada muda: \"Je m'appelle Marie.\"",
+      "example": {
+        "fr": "Je m'appelle Marie.",
+        "ipa": "/ʒə ma.pɛl ma.ʁi/",
+        "pt": "Eu me chamo Marie.",
+        "highlight": "Je m'appelle"
+      }
+    },
+    {
+      "id": "c1l1-comment-ca-va",
+      "fr": "Comment ça va ?",
+      "pron": "ko-MÃ sa VA",
+      "ipa": "/kɔ.mɑ̃ sa va/",
+      "pt": "como vai?",
+      "tag": "Pergunta",
+      "note": "O \"ç\" soa como \"s\". O \"an\" final de \"comment\" é nasal.",
+      "example": {
+        "fr": "Salut, comment ça va ?",
+        "ipa": "/sa.ly kɔ.mɑ̃ sa va/",
+        "pt": "Oi, como vai?",
+        "highlight": "comment ça va"
+      }
+    },
+    {
+      "id": "c1l1-ca-va-bien",
+      "fr": "Ça va bien",
+      "pron": "sa va biẽ",
+      "ipa": "/sa va bjɛ̃/",
+      "pt": "vou bem",
+      "tag": "Resposta",
+      "note": "\"Bien\" termina em som nasal, parecido com o \"ien\" de \"também\".",
+      "example": {
+        "fr": "Ça va bien, merci.",
+        "ipa": "/sa va bjɛ̃ mɛʁ.si/",
+        "pt": "Vou bem, obrigado(a).",
+        "highlight": "Ça va bien"
+      }
+    },
+    {
+      "id": "c1l1-et-vous",
+      "fr": "Et vous ?",
+      "pron": "e VU",
+      "ipa": "/e vu/",
+      "pt": "e você? (formal)",
+      "tag": "Pergunta",
+      "note": "\"Vous\" é o tratamento educado, para quem você não conhece bem ou para mais de uma pessoa.",
+      "example": {
+        "fr": "Ça va bien, et vous ?",
+        "ipa": "/sa va bjɛ̃ e vu/",
+        "pt": "Vou bem, e você?",
+        "highlight": "et vous"
+      }
+    },
+    {
+      "id": "c1l1-merci",
+      "fr": "Merci",
+      "pron": "mér-SI",
+      "ipa": "/mɛʁ.si/",
+      "pt": "obrigado(a)",
+      "tag": "Cortesia",
+      "note": "Não muda para homem ou mulher: quem fala \"merci\" é sempre \"merci\".",
+      "example": {
+        "fr": "Merci beaucoup !",
+        "ipa": "/mɛʁ.si bo.ku/",
+        "pt": "Muito obrigado(a)!",
+        "highlight": "Merci"
+      }
+    },
+    {
+      "id": "c1l1-sil-vous-plait",
+      "fr": "S'il vous plaît",
+      "pron": "sil vu PLÉ",
+      "ipa": "/sil vu plɛ/",
+      "pt": "por favor",
+      "tag": "Cortesia",
+      "note": "Para pedir algo a um desconhecido. Entre amigos, diz-se \"s'il te plaît\".",
+      "example": {
+        "fr": "Un café, s'il vous plaît.",
+        "ipa": "/œ̃ ka.fe sil vu plɛ/",
+        "pt": "Um café, por favor.",
+        "highlight": "s'il vous plaît"
+      }
+    },
+    {
+      "id": "c1l1-oui",
+      "fr": "Oui",
+      "pron": "UI",
+      "ipa": "/wi/",
+      "pt": "sim",
+      "tag": "Básico",
+      "example": {
+        "fr": "Oui, merci.",
+        "ipa": "/wi mɛʁ.si/",
+        "pt": "Sim, obrigado(a).",
+        "highlight": "Oui"
+      }
+    },
+    {
+      "id": "c1l1-non",
+      "fr": "Non",
+      "pron": "nõ",
+      "ipa": "/nɔ̃/",
+      "pt": "não",
+      "tag": "Básico",
+      "note": "Nasal, como o \"on\" de \"bonjour\": o \"n\" não é pronunciado.",
+      "example": {
+        "fr": "Non, merci.",
+        "ipa": "/nɔ̃ mɛʁ.si/",
+        "pt": "Não, obrigado(a).",
+        "highlight": "Non"
+      }
+    },
+    {
+      "id": "c1l1-excusez-moi",
+      "fr": "Excusez-moi",
+      "pron": "ék-skü-ZÊ mua",
+      "ipa": "/ɛk.sky.ze mwa/",
+      "pt": "com licença; desculpe",
+      "tag": "Cortesia",
+      "note": "Use para chamar a atenção de alguém ou pedir passagem.",
+      "example": {
+        "fr": "Excusez-moi, monsieur.",
+        "ipa": "/ɛk.sky.ze mwa mə.sjø/",
+        "pt": "Com licença, senhor.",
+        "highlight": "Excusez-moi"
+      }
+    }
+  ]
+}

@@ -45,6 +45,21 @@ const PATHS = {
   ),
   check: <path d="M4.5 12.5l5 5 10-11" />,
   arrow: <path d="M4.5 12h15M13 5.5l6.5 6.5-6.5 6.5" />,
+  close: <path d="M6 6l12 12M18 6L6 18" />,
+  flip: <path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18.5 3v4h-4M5.5 21v-4h4" />,
+  volume: (
+    <>
+      <path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z" />
+      <path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11" />
+    </>
+  ),
+  play: (
+    <path
+      d="M8 5.5v13a.8.8 0 0 0 1.2.7l10.4-6.5a.8.8 0 0 0 0-1.4L9.2 4.8A.8.8 0 0 0 8 5.5z"
+      fill="currentColor"
+      stroke="none"
+    />
+  ),
   alert: (
     <>
       <circle cx="12" cy="12" r="8.5" />

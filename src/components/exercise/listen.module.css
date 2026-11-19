@@ -1,0 +1,135 @@
+/* Escutar e falar (mockup 3 da direção Cahier). */
+
+.phrase {
+  padding: 0 22px;
+}
+
+/* A frase quebra em várias linhas, cada uma sobre uma pauta de 36 px. */
+.sentence {
+  font-size: 32px;
+  line-height: 36px;
+  position: relative;
+  top: 2px;
+  overflow-wrap: anywhere;
+}
+
+.sentence mark {
+  color: inherit;
+  background: linear-gradient(transparent 58%, var(--marker) 58% 92%, transparent 92%);
+  padding: 0 2px;
+  margin: 0 -2px;
+}
+
+.ipaLine {
+  padding: 0 22px 7px;
+  height: var(--u);
+  display: flex;
+  align-items: flex-end;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ptLine {
+  font-size: 16px;
+  color: var(--muted);
+  font-style: italic;
+  padding: 0 22px 3px;
+  height: var(--u);
+  display: flex;
+  align-items: flex-end;
+}
+
+.player {
+  height: 112px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.play {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: none;
+  background: var(--pen);
+  color: var(--card);
+}
+
+.wave {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.wave i {
+  width: 4px;
+  border-radius: 2px;
+  background: var(--rule-2);
+  height: var(--h);
+}
+
+/* Enquanto a voz fala, as barras acendem da esquerda para a direita (só indicação visual). */
+.speaking i {
+  animation: played 0.1s linear forwards;
+  animation-delay: calc(var(--i) * var(--dur) / 23);
+}
+
+@keyframes played {
+  to {
+    background: var(--pen);
+  }
+}
+
+.speed {
+  min-width: 64px;
+  min-height: 44px;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1.5px solid var(--rule-2);
+  color: var(--pen);
+  flex: none;
+}
+
+/* Gravação de fala ainda não existe: diz isso em vez de mostrar um botão morto. */
+.soon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 24px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1.5px dashed var(--rule-2);
+}
+
+.soon p {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.soon b {
+  display: block;
+  font-size: 14.5px;
+  color: var(--ink);
+}
+
+.micOff {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: none;
+  background: var(--rule);
+  color: var(--muted);
+}

@@ -1,0 +1,278 @@
+/* Telas de exercício da direção Cahier: barra de progresso, ficha pautada e rodapé de ação. */
+
+/* ---------- barra de topo ---------- */
+.bar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: max(env(safe-area-inset-top), 14px) 16px 0 12px;
+}
+
+.close {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  flex: none;
+}
+
+.ticks {
+  flex: 1;
+  display: flex;
+  gap: 6px;
+}
+
+.ticks i {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--rule);
+}
+
+.ticks i.on {
+  background: var(--pen);
+}
+
+.ticks i.now {
+  background: linear-gradient(90deg, var(--pen) 45%, var(--rule) 45%);
+}
+
+/* Com muitos cartões os segmentos ficariam finos demais: uma barra contínua. */
+.track {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--rule);
+  overflow: hidden;
+}
+
+.track i {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--pen);
+  transition: width 0.25s ease;
+}
+
+.count {
+  flex: none;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--muted);
+  min-width: 34px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- corpo e rodapé ---------- */
+.task {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 24px 0;
+  min-height: 0;
+  /* Em telas baixas a ficha mantém uma altura mínima e o corpo rola (o rodapé não). */
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.title {
+  font-size: 32px;
+  margin-top: 6px;
+}
+
+.dock {
+  flex: none;
+  padding: 12px 24px max(calc(env(safe-area-inset-bottom) + 8px), 24px);
+}
+
+.dockStack {
+  display: grid;
+  gap: 10px;
+}
+
+/* ---------- ficha pautada ---------- */
+.fiche {
+  --u: 36px; /* espaçamento das pautas; o texto assenta sobre a pauta */
+  position: relative;
+  flex: 1 0 auto;
+  min-height: var(--min-h, 0px);
+  container-type: inline-size;
+  background: var(--card);
+  border-radius: 16px;
+  border: 1px solid var(--rule);
+  box-shadow:
+    0 16px 30px -16px var(--shadow),
+    0 2px 0 var(--rule);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.fiche::before {
+  content: "";
+  position: absolute;
+  inset: var(--lt, 58px) 0 var(--lb, 0px) 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 calc(var(--u) - 1px),
+    var(--rule) calc(var(--u) - 1px) var(--u)
+  );
+}
+
+.fiche::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 56px;
+  height: 2px;
+  background: var(--margin);
+}
+
+.fiche > * {
+  position: relative;
+  z-index: 1;
+}
+
+.top {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.top span:last-child {
+  text-align: right;
+}
+
+/* Linha da pauta: o texto fica sobre a linha de baixo. */
+.row {
+  height: var(--u);
+  display: flex;
+  align-items: flex-end;
+  padding: 0 22px 7px;
+  white-space: nowrap;
+}
+
+.hint {
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+/* ---------- notas ---------- */
+.ask {
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.grade button {
+  min-height: 74px;
+  min-width: 0;
+  border-radius: 18px;
+  display: grid;
+  place-content: center;
+  gap: 2px;
+  text-align: center;
+  background: var(--card);
+  border: 1.5px solid var(--rule-2);
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: inset 0 -4px 0 var(--c);
+}
+
+.grade button small {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.grade button:disabled {
+  opacity: 0.55;
+}
+
+.g1 {
+  --c: var(--accent);
+}
+
+.g2 {
+  --c: var(--warn);
+}
+
+.g3 {
+  --c: var(--ok);
+}
+
+.g4 {
+  --c: var(--pen);
+}
+
+/* ---------- avisos ---------- */
+.notice {
+  margin: 0 22px 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--card);
+  border: 1.5px solid var(--warn);
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
+.error {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--error);
+  margin-bottom: 10px;
+}
+
+.btn[disabled] {
+  opacity: 0.6;
+}
+
+/* Peça fixada no pé da ficha (o player da etapa Escutar e falar). */
+.fiche > .bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* ---------- etapa concluída / estado vazio ---------- */
+.lines {
+  padding: 0 22px;
+  line-height: var(--u);
+  font-size: 17px;
+  /* desce o texto para assentar sobre a pauta, não no meio da linha */
+  position: relative;
+  top: 8px;
+}
+
+.lines p + p {
+  margin-top: 0;
+}
+
+.lines b {
+  font-weight: 700;
+}
